@@ -1,19 +1,19 @@
 
-import React, { useRef, useState } from 'react';
+import { useRef, useState } from 'react';
 import Header from './Header';
 import authFormValidation from '../utils/authFormValidation';
 import { createUserWithEmailAndPassword, signInWithEmailAndPassword, updateProfile } from "firebase/auth";
-import { auth } from '../utils/firebase'
-import { useNavigate } from 'react-router-dom';
+import { auth } from '../utils/firebase' 
 import { useDispatch } from 'react-redux';
 import { addUser } from '../utils/userSlice';
+import { Netflix_Bg_Img, User_Img } from '../utils/constants';
 
 const Login = () => {
   const name = useRef(null)
   const email = useRef(null)
-  const password = useRef(null)
-  const navigate = useNavigate();
+  const password = useRef(null) 
   const dispatch = useDispatch();
+  console.log(User_Img)
 
   const [isSignInForm, setIsSignInForm] = useState(true)
   const [errorMsg, setErrorMsg] = useState("")
@@ -33,11 +33,10 @@ const Login = () => {
           // Signed up 
           const user = userCredential.user;
           updateProfile(user, {
-            displayName: name.current.value, photoURL: "https://cdn-icons-png.flaticon.com/512/5045/5045878.png"
+            displayName: name.current.value, photoURL: User_Img
           }).then(() => {
             const { uid, email, displayName, photoURL } = auth.currentUser;
             dispatch(addUser({ uid: uid, email: email, displayName: displayName, photoURL: photoURL }))
-            navigate("/browse")
           }).catch((error) => {
             const errorCode = error.code;
             const errorMessage = error.message;
@@ -57,7 +56,7 @@ const Login = () => {
           const user = userCredential.user;
           const { uid, email, displayName, photoURL } = user;
           dispatch(addUser({ uid: uid, email: email, displayName: displayName, photoURL: photoURL }))
-          navigate("/browse")
+           
         })
         .catch((error) => {
           const errorCode = error.code;
@@ -75,7 +74,7 @@ const Login = () => {
   return (
     <div className="relative">
       <Header />
-      <img className='w-screen h-screen bg-[linear-gradient(to_bottom,#4f1111_0%,#3d0000_16.7%,#280505_40%,#1b0707_100%)]' src="https://assets.nflxext.com/ffe/siteui/vlv3/9ba9f0e2-b246-47f4-bd1f-3e84c23a5db8/web/IN-en-20251020-TRIFECTA-perspective_d6da84e9-6145-4b1e-bb51-e402c966a045_large.jpg" alt="bg_img" />
+      <img className='w-screen h-screen bg-[linear-gradient(to_bottom,#4f1111_0%,#3d0000_16.7%,#280505_40%,#1b0707_100%)]' src={Netflix_Bg_Img} alt="bg_img" />
       <hr className="absolute top-[13%] left-0 w-full border-t-2 border-white opacity-20" />
 
       {/* Centered login form */}
