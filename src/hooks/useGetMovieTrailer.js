@@ -5,7 +5,6 @@ import { addTrailerVideo } from "../utils/movieSlice";
 
 const useGetMovieTrailer = (movieId)=>{
     const dispatch = useDispatch()
-    const trailerVideo = useSelector((store) => store.movies?.trailerVideo)
  
     const url = `https://api.themoviedb.org/3/movie/${movieId}/videos?language=en-US`;
 
@@ -20,14 +19,10 @@ const useGetMovieTrailer = (movieId)=>{
         const filterTrailers = videosJson.results.filter((video) => video.type === "Trailer")
 
         const trailer = filterTrailers.length <= 0 ? videosJson.results[0] : filterTrailers[0]
-        const trailerKey = trailer.key
-        const trailerURL = `https://www.youtube.com/embed/${trailerKey}`
-        dispatch(addTrailerVideo(trailerURL))
+        
+        dispatch(addTrailerVideo(trailer))
     }
-
-    if(trailerVideo){
-        return trailerVideo
-    };
+ 
 }
 
 export default useGetMovieTrailer;
