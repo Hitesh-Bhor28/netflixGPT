@@ -4,12 +4,15 @@ import { onAuthStateChanged, signOut } from "firebase/auth";
 import { useDispatch, useSelector } from "react-redux";
 import { useEffect } from "react";
 import { addUser, removeUser } from '../utils/userSlice'
-import { Netflix_Logo } from "../utils/constants";
+import { Netflix_Logo, SUPPORTED_LANGUAGES } from "../utils/constants";
+import { toggleGptSearchView } from "../utils/gptSlice";
+import { changeLanguage } from "../utils/configSlice";
 
 const Header = () => {
   const user = useSelector((store) => store.user);
+  const showGptSearch = useSelector((store) => store.gpt.showGptSearch);
   const navigate = useNavigate()
-  const dispatch = useDispatch(); 
+  const dispatch = useDispatch();
 
   useEffect(() => {
     const unsubscribe = onAuthStateChanged(auth, (user) => {
@@ -23,9 +26,17 @@ const Header = () => {
       }
     });
 
-    return ()=> unsubscribe();
+    return () => unsubscribe();
   }, [])
-  
+
+  const handleGPTSearchClick = () => {
+    dispatch(toggleGptSearchView())
+  }
+
+  const handleLanguageChange = (e) => {
+    dispatch(changeLanguage(e.target.value))
+  }
+
   const handleSignOut = () => {
     signOut(auth).then(() => {
     }).catch((error) => {
@@ -41,6 +52,16 @@ const Header = () => {
       />
       {user && (
         <div className="flex p-2">
+          {showGptSearch && (
+            <select onChange={handleLanguageChange} className="p-2 m-2 bg-gray-900 text-white">
+              {SUPPORTED_LANGUAGES.map((language) => (
+                <option key={language.identifier} value={language.identifier}>
+                  {language.name}
+                </option>
+              ))}
+            </select>
+          )}
+          <button onClick={handleGPTSearchClick} className="p-2 px-4 mx-4 my-2 bg-purple-800 text-white rounded-lg">{showGptSearch ? "HomePage" : "GPT Search"}</button>
           <img src={user?.photoURL} alt="" width="40px" height="40px" />
           <button className="px-2.5" onClick={handleSignOut}>Sign Out</button>
         </div>)
