@@ -1,7 +1,6 @@
 import express from 'express';
 import cors from 'cors';
-// Correct import for the new package
-import { GoogleGenerativeAI } from '@google/genai'; 
+import { GoogleGenerativeAI } from '@google/generative-ai';
 
 // 1. Get the secure key from Render's Environment Variables
 const genAI = new GoogleGenerativeAI(process.env.GEMINI_API_KEY);
