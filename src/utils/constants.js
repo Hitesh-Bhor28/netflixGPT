@@ -21,4 +21,4 @@ export const UPCOMING = "https://api.themoviedb.org/3/movie/upcoming?language=en
 export const SUPPORTED_LANGUAGES = [{identifier : "en",name : "English"},{identifier : "hindi",name : "Hindi"},{identifier : "spanish",name : "Spanish"}]
 
 //AI
-export const BACKEND_URL = 'https://YOUR_RENDER_APP_URL.onrender.com';
+export const BACKEND_URL = 'https://netflixgpt-ai.onrender.com';
