@@ -7,10 +7,12 @@ import { addUser, removeUser } from '../utils/userSlice'
 import { Netflix_Logo, SUPPORTED_LANGUAGES } from "../utils/constants";
 import { toggleGptSearchView } from "../utils/gptSlice";
 import { changeLanguage } from "../utils/configSlice";
+import { lang } from "../utils/languageConstants";
 
 const Header = () => {
   const user = useSelector((store) => store.user);
   const showGptSearch = useSelector((store) => store.gpt.showGptSearch);
+  const langKey = useSelector((store)=> store.config.lang)
   const navigate = useNavigate()
   const dispatch = useDispatch();
 
@@ -61,7 +63,7 @@ const Header = () => {
               ))}
             </select>
           )}
-          <button onClick={handleGPTSearchClick} className="p-2 px-4 mx-4 my-2 bg-purple-800 text-white rounded-lg">{showGptSearch ? "HomePage" : "GPT Search"}</button>
+          <button onClick={handleGPTSearchClick} className="p-2 px-4 mx-4 my-2 bg-purple-800 text-white rounded-lg">{showGptSearch ? lang[langKey].gptBtnHome : "GPT Search"}</button>
           <img src={user?.photoURL} alt="" width="40px" height="40px" />
           <button className="px-2.5" onClick={handleSignOut}>Sign Out</button>
         </div>)
