@@ -1,7 +1,7 @@
 import { useRef, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { lang } from '../utils/languageConstants'; 
-import { BACKEND_URL, options } from '../utils/constants';
+import { options } from '../utils/constants';
 import { addGptMovieResult } from '../utils/gptSlice';
 
 const GptSearchBar = () => {
@@ -26,7 +26,7 @@ const GptSearchBar = () => {
     try {
       const gptQuery = `Act as a Movie Recommendation system and suggest some movies for the query: ${searchBox.current.value}. Only Give me names of 5 movies, comma separated like the example result given ahead. Example Result: Gadar, Sholay, Don, Golmaal, Transformers`;
 
-      const response = await fetch(`${BACKEND_URL}/api/gemini`, {
+      const response = await fetch(`${import.meta.env.VITE_BACKEND_URL}/api/gemini`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',

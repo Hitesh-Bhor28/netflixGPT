@@ -6,7 +6,7 @@ export const options = {
   method: 'GET',
   headers: {
     accept: 'application/json',
-    Authorization: 'Bearer eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiIyYzViMTFlMTQ0MWVjYjI5NjNjYjI1NmExODAzNWRiNiIsIm5iZiI6MTc2MjAyNDAxOS4wMTMsInN1YiI6IjY5MDY1YTUzNWY3NmY2M2M0YzA4MTEzMyIsInNjb3BlcyI6WyJhcGlfcmVhZCJdLCJ2ZXJzaW9uIjoxfQ.pzO7EdB0SYYTHkcpkRqcOcC9EbJv0M17BS7jheefstE'
+    Authorization: `Bearer ${import.meta.env.VITE_TOKEN}` 
   }
 };
 
@@ -20,5 +20,3 @@ export const UPCOMING = "https://api.themoviedb.org/3/movie/upcoming?language=en
 
 export const SUPPORTED_LANGUAGES = [{identifier : "en",name : "English"},{identifier : "hindi",name : "Hindi"},{identifier : "spanish",name : "Spanish"}]
 
-//AI
-export const BACKEND_URL = 'https://netflixgpt-ai.onrender.com';

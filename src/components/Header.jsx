@@ -49,9 +49,9 @@ const Header = () => {
   };
 
   return (
-    <div className="z-50 fixed top-0 left-0 w-screen bg-[rgba(0,0,0,0.75)] text-white flex items-center justify-between px-4 sm:px-12 py-3">
+    <div className="z-50 fixed top-0 left-0 w-screen bg-[rgba(0,0,0,0.75)] text-white flex items-center justify-between px-0 sm:px-12 py-0">
       {/* Logo */}
-      <div className="flex items-center justify-between w-screen sm:w-auto">
+      <div className="bg-black flex items-center justify-between w-screen sm:w-auto">
         <img
           className="w-28 sm:w-36 md:w-44 cursor-pointer"
           src={Netflix_Logo}
@@ -140,7 +140,7 @@ const Header = () => {
 
       {/* Mobile Menu (slide-down) */}
       {isMenuOpen && user && (
-        <div className="absolute top-[60px] left-0 w-full bg-[rgba(0,0,0,0.9)] flex flex-col items-center gap-4 py-4 sm:hidden animate-slideDown">
+        <div className="absolute top-11 left-0 w-full bg-[rgba(0,0,0,0.9)] flex flex-col items-center gap-4 py-14 sm:hidden animate-slideDown">
           {showGptSearch && (
             <select
               onChange={handleLanguageChange}
