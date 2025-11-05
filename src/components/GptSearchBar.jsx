@@ -1,12 +1,22 @@
 import { useRef, useState } from 'react';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { lang } from '../utils/languageConstants'; 
-import { BACKEND_URL } from '../utils/constants';
+import { BACKEND_URL, options } from '../utils/constants';
+import { addGptMovieResult } from '../utils/gptSlice';
 
 const GptSearchBar = () => {
   const langKey = useSelector((store) => store.config.lang);
   const searchBox = useRef();
+  const dispatch = useDispatch()
   const [loading, setLoading] = useState(false);
+
+  const searchMovieTMDB = async (movie)=>{
+    const url = "https://api.themoviedb.org/3/search/movie?query="+movie+"&include_adult=false&language=en-US&page=1";
+    const data = await fetch(url, options)
+
+    const dataJson = await data.json()
+    return dataJson.results
+  }
  
 
   const handleGptSearchClick = async () => {
@@ -35,7 +45,15 @@ const GptSearchBar = () => {
       const data = await response.json();
 
       // This is the text from Gemini
-      console.log(data.text);
+      // console.log(data.text);
+      const gptMovies = data.text.split(",")
+
+      const promisedArray = gptMovies.map(movie => searchMovieTMDB(movie))
+      // [Promise, Promise, Promise, Promise, Promise, ]
+      const tmdbResults = await Promise.all(promisedArray)
+
+      console.log(tmdbResults)
+      dispatch(addGptMovieResult({movieNames: gptMovies,movieResults: tmdbResults}))
 
     } catch (err) {
       console.error('Error:', err);

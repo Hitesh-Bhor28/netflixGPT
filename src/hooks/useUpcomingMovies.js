@@ -1,14 +1,16 @@
 import { useEffect } from "react";
 import { options, UPCOMING } from "../utils/constants";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { addUpcomingMovies } from "../utils/movieSlice";
 
 const useUpcomingMovies = ()=>{
     const dispatch = useDispatch()
+    const upcomingMovies = useSelector((store)=> store.movies.upcomingMovies)
     
-    useEffect(()=>{
-        getUpcomingMovies();
-    },[])
+    useEffect(() => {
+    //Memoization concept
+    if(!upcomingMovies) getUpcomingMovies()
+  }, [])
 
     const getUpcomingMovies =  async ()=>{
 
