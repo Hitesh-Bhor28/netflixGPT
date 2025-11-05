@@ -6,7 +6,7 @@ import usePopularMovies from '../hooks/usePopularMovies';
 import useUpcomingMovies from '../hooks/useUpcomingMovies';
 import useTopRatedMovies from '../hooks/useTopRatedMovies';
 import { useSelector } from 'react-redux';
-import GptSearchPage from './GPTSearchPage';
+import GptSearchPage from './GptSearchPage';
 
 const Browse = () => {
   useNowPlayingMovies()
